@@ -6,7 +6,7 @@ class FrontController {
   protected $params;
   protected $controller_name;
   private $child_controller;
-  protected $client;
+  public $user;
   protected $action_name;
   protected $data;
   protected $post_data;
@@ -14,8 +14,9 @@ class FrontController {
   public $alerts;
   public $currency;
 
-  public function __construct() {
-
+  public function __construct($user) {
+    
+    $this->user = $user;
     $this->params = explode('/', $_SERVER['REQUEST_URI']);
     $this->post_data = $_POST;
     $this->controller_name = (!empty($this->params[1])) ? $this->params[1] : 'Index';
@@ -30,7 +31,7 @@ class FrontController {
   private function getController() {
     try {
       $controller_classname = ucfirst($this->controller_name) . 'Controller';
-      $this->child_controller = new $controller_classname();
+      $this->child_controller = new $controller_classname($this->user);
       $this->view = $this->child_controller->setView();
     } catch (Exception $e) {
 
@@ -104,7 +105,7 @@ class FrontController {
    * @return Client
    */
   public function getClient() {
-    return $this->client;
+    return $this->user;
   }
 
   public function getControllerName() {

@@ -3,7 +3,8 @@
 class IndexController extends FrontController {
 
   protected function IndexAction() {
-    parent::IndexAction();
+    //show($this->user);
+    //Connexion::getInstance()->query("");
   }
 
 }

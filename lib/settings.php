@@ -9,9 +9,9 @@ set_time_limit(300);
 define('HOST', $_SERVER['HTTP_HOST']);
 
 define('DB_HOST', 'localhost');
-define('DB_USER', '');
-define('DB_PASS', '');
-define('DB_BASE', '');
+define('DB_USER', 'keywordsanalyzer');
+define('DB_PASS', 'Ea9pN5fR43x2nWuR');
+define('DB_BASE', 'keywordsanalyzer');
 
 define('ROOT_PATH', dirname(__FILE__) . '/../');
 define('URL_VIEWS', ROOT_PATH . 'views/');

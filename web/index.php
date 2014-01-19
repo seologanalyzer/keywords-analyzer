@@ -25,8 +25,9 @@ if (!isset($_SESSION['login'])):
     header('Location: ' . APP_PATH);
     add('login');
 else:
-
-  $frontController = new FrontController();
+  
+  $user = new User($_SESSION['login']);
+  $frontController = new FrontController($user);
   $controller = $frontController->getChildController();
   include_once $controller->getView();
   

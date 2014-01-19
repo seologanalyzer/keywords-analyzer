@@ -13,13 +13,12 @@ class Login {
   public function identification() {
 
     Connexion::getInstance()->query("SELECT name FROM user
-                    WHERE name = '" . $this->login . "'
+                    WHERE mail = '" . $this->login . "'
                     AND password = '" . md5($this->pass) . "' ");
 
     $nom = Connexion::getInstance()->result();
 
     if ($nom):
-
         return true;
 
     endif;

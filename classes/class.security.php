@@ -11,10 +11,9 @@ class Security {
   private static function login() {
         
     $client = new Login(addslashes($_POST['login']), addslashes($_POST['password']));
-
-    if ($client->identification()) {
-      //for agency
-      $_SESSION['account'] = $_POST['login'];
+    
+    $login = $client->identification();
+    if ($login) {;
       $_SESSION['login'] = $client->getIdentifiant();
 
       return true;
