@@ -14,7 +14,7 @@ if (isset($_POST['login']) && isset($_POST['password'])):
 endif;
 
 $xpl = explode('/', $_SERVER['REQUEST_URI']);
-if (isset($xpl[2]) && $xpl[2] == 'api'):
+if (isset($xpl[1]) && $xpl[1] == 'api'):
   $xpl = explode('/', $_SERVER['REQUEST_URI']);
   new Api($xpl[2], $_POST);
   exit;
