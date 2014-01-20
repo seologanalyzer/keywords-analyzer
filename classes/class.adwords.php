@@ -46,7 +46,7 @@ class Adwords {
 
     else:
 
-      Connexion::getInstance()->query("UPDATE keyword SET search = '0', competition = '0' WHERE id_keyword = '" . $this->keyword['id_keyword'] . "' ");
+      Connexion::getInstance()->query("UPDATE keyword SET search = '5', competition = '0' WHERE id_keyword = '" . $this->keyword['id_keyword'] . "' ");
 
     endif;
   }

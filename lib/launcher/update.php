@@ -1,5 +1,6 @@
 <?php
 
+//keywords informations
 $keyword = get($token);
 
 if (isset($keyword->keyword)) {
@@ -69,11 +70,42 @@ if (isset($keyword->keyword)) {
     $keyword = get($token);
 
   endwhile;
-}else {
+}
 
+//keywords position
+$position = getposition($token);
+
+if (isset($position->keyword)) {
+  
+}
+
+//if no queue
+if (!isset($position->keyword) && !isset($keyword->keyword)) {
   echo @date('Y-m-d H:i:s') . ' : Pas de mots cles en attente.' . "\n";
   echo @date('Y-m-d H:i:s') . ' : Vous pouvez fermer cette fenetre.' . "\n";
   sleep(1000);
+}
+
+function getposition($token) {
+  $ch = curl_init();
+  $fields = array('token' => $token);
+  $fields_string = '';
+  foreach ($fields as $key => $value):
+    $fields_string .= $key . '=' . $value . '&';
+  endforeach;
+
+  rtrim($fields_string, '&');
+
+  curl_setopt($ch, CURLOPT_URL, 'http://keywords.dulol.fr/api/getposition');
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_POST, count($fields));
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+
+  $result = curl_exec($ch);
+  curl_close($ch);
+
+  $keyword = json_decode($result);
+  return $keyword;
 }
 
 function get($token) {

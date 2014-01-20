@@ -42,6 +42,13 @@ class Api {
     echo json_encode($keyword);
     exit;
   }
+  
+  public function getposition() {
+    //
+    $date = new DateTime();
+    echo json_encode($keyword);
+    exit;
+  }
 
   public function update() {
     $handle = file_get_contents(ROOT_PATH . 'lib/launcher/update.php');

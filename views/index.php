@@ -26,7 +26,9 @@
               <th style="text-align:center;">Recherche Exact</th>
               <th style="text-align:center;">In Title</th>
               <th style="text-align:center;">Volume Recherche</th>
+              <th style="text-align:center;">Competition</th>
               <th style="text-align:center;">Position</th>
+              <th style="text-align:center;">Détail</th>
               <th style="text-align:center;">Supprimer</th>
             </tr>
           </thead>
@@ -43,7 +45,7 @@
                   <?php echo number_format($keyword['request_large'], 0, ',', ' '); ?>
                 </td>
                 <td style="text-align:center;">
-                   <!--<?php
+                  <!--<?php
                   for ($x = strlen($keyword['request_exact']); $x < 12; $x++) {
                     echo '0';
                   }echo $keyword['request_exact'];
@@ -51,7 +53,7 @@
                   <?php echo number_format($keyword['request_exact'], 0, ',', ' '); ?>
                 </td>
                 <td style="text-align:center;">
-                   <!--<?php
+                  <!--<?php
                   for ($x = strlen($keyword['request_title']); $x < 12; $x++) {
                     echo '0';
                   }echo $keyword['request_title'];
@@ -59,13 +61,15 @@
                   <?php echo number_format($keyword['request_title'], 0, ',', ' '); ?>
                 </td>
                 <td style="text-align:center;">
-                   <!--<?php
+                  <!--<?php
                   for ($x = strlen($keyword['search']); $x < 12; $x++) {
                     echo '0';
                   }echo $keyword['search'];
                   ?>-->
                   <?php echo number_format($keyword['search'], 0, ',', ' '); ?>
                 </td>
+                <td style="text-align:center;"><?php echo ($keyword['competition']); ?></td>
+                <td style="text-align:center;">0</td>
                 <td style="text-align:center;"><a href="/keyword/<?php echo $keyword['id_keyword']; ?>"><button class="btn btn-success">Voir</button></a></td>
                 <td style="text-align:center;"><button class="btn btn-danger" onclick="deleteKeyword('<?php echo $keyword['id_keyword']; ?>')">Supprimer</button></td>
               </tr>
@@ -80,27 +84,27 @@
 <script type="text/javascript" src="/lib/datatables/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/lib/datatables/extras/TableTools/media/js/TableTools.min.js"></script>
 <script>
-                $(document).ready(function() {
-                  $('#table').dataTable({
-                    "oLanguage": {"sInfoThousands": " "},
-                    "sDom": "<'row'<'span6'l><'span6'Tf>r>t<'row'<'span6'i><'span6'p>>",
-                    "sPaginationType": "bootstrap",
-                    "oTableTools": {
-                      "sSwfPath": "/lib/datatables/extras/TableTools/media/swf/copy_csv_xls_pdf.swf"
-                    },
-                    "aoColumnDefs": [
-                      {"sType": "string", "aTargets": [1, 2, 3, 4]}
-                    ]
-                  });
-                });
-                function deleteKeyword(id_keyword) {
-                  if (confirm('Voulez-vous supprimer ce mot clé')) {
-                    $.post("/keyword/delete", {id: id_keyword},
-                    function(data) {
-                      $.sticky('Mot clé supprimé', {autoclose: 1500, position: "top-right", type: "st-white"});
-                      $('#keyword_' + id_keyword).hide();
-                    }, "text");
-                  }
-                }
+          $(document).ready(function() {
+            $('#table').dataTable({
+              "oLanguage": {"sInfoThousands": " "},
+              "sDom": "<'row'<'span6'l><'span6'Tf>r>t<'row'<'span6'i><'span6'p>>",
+              "sPaginationType": "bootstrap",
+              "oTableTools": {
+                "sSwfPath": "/lib/datatables/extras/TableTools/media/swf/copy_csv_xls_pdf.swf"
+              },
+              "aoColumnDefs": [
+                {"sType": "string", "aTargets": [1, 2, 3, 4]}
+              ]
+            });
+          });
+          function deleteKeyword(id_keyword) {
+            if (confirm('Voulez-vous supprimer ce mot clé')) {
+              $.post("/keyword/delete", {id: id_keyword},
+              function(data) {
+                $.sticky('Mot clé supprimé', {autoclose: 1500, position: "top-right", type: "st-white"});
+                $('#keyword_' + id_keyword).hide();
+              }, "text");
+            }
+          }
 </script>
 <?php add('footer'); ?>
