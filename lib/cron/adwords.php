@@ -15,10 +15,5 @@ Connexion::getInstance()->query("SELECT keyword, id_keyword
 
 $keywords = Connexion::getInstance()->fetchAll();
 
-show($keywords);
-
-foreach ($keywords as $keyword):
-
+foreach ($keywords as $keyword)
   new Adwords($keyword);
-
-endforeach;
