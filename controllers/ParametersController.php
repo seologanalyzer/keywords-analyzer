@@ -3,7 +3,7 @@
 class ParametersController extends FrontController {
 
   protected function IndexAction() {
-    Connexion::getInstance()->query("SELECT gg, delay, url, frequency FROM user WHERE id = '" . $this->user->user['id'] . "' ");
+    Connexion::getInstance()->query("SELECT gg, delay, url, frequency, name FROM user WHERE id = '" . $this->user->user['id'] . "' ");
     $this->data->parameters = Connexion::getInstance()->fetch();
   }
 
