@@ -26,7 +26,6 @@
               <th style="text-align:center;">Volume Recherche</th>
               <th style="text-align:center;">Competition</th>
               <th style="text-align:center;">Position</th>
-              <th style="text-align:center;">Evolution</th>
               <th style="text-align:center;">Détail</th>
               <th style="text-align:center;">Supprimer</th>
             </tr>
@@ -68,8 +67,7 @@
                   <?php echo number_format($keyword['search'], 0, ',', ' '); ?>
                 </td>
                 <td style="text-align:center;"><?php echo ($keyword['competition']); ?></td>
-                <td style="text-align:center;">0</td>
-                <td style="text-align:center;">+0</td>
+                <td style="text-align:center;"><?php echo ($keyword['position'] == 0) ? '100' : $keyword['position']; ?></td>
                 <td style="text-align:center;"><a href="/keyword/<?php echo $keyword['id_keyword']; ?>"><button class="btn btn-success">Voir</button></a></td>
                 <td style="text-align:center;"><button class="btn btn-danger" onclick="deleteKeyword('<?php echo $keyword['id_keyword']; ?>')">Supprimer</button></td>
               </tr>

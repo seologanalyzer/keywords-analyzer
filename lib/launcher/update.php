@@ -112,6 +112,8 @@ if (isset($position->keyword)) {
         sleep(1);
       endfor;
 
+      echo "\n";
+
     endfor;
 
     //call post to the api

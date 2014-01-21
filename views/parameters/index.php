@@ -19,7 +19,7 @@
           <br/>
           Délai entre deux requêtes : <input type="text" value="<?php echo $controller->getData()->parameters['delay']; ?>" name="delay" class="span1" style="margin:10px;" /> secondes
           <br/>
-          Fréquence des positions : <input type="text" value="<?php echo $controller->getData()->parameters['frequency']; ?>" name="frequency" class="span1" style="margin:10px;" /> jours
+          Fréquence des calculs des positions : <input type="text" value="<?php echo $controller->getData()->parameters['frequency']; ?>" name="frequency" class="span1" style="margin:10px;" /> jours
           <hr/>
           Votre nom : <input type="text" value="<?php echo $controller->getData()->parameters['name']; ?>" class="span3" style="margin:10px;"  /><br/>
           Ancien mot de passe : <input type="text" value="" class="span3" style="margin:10px;"  /><br/>

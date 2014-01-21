@@ -48,6 +48,10 @@ class Api {
       $positions = unserialize(urldecode(base64_decode($this->post['values'])));
       foreach ($positions as $k => $position):
         $xpl = explode('&amp;', $position['url']);
+        //if it's user's url
+        if (strpos($position['url'], $this->user['url']) !== false):
+          Connexion::getInstance()->query("UPDATE keyword SET position = '" . $k . "' WHERE id_keyword = '" . $this->post['id_keyword'] . "' ");
+        endif;
         Connexion::getInstance()->query("SELECT id_url FROM url WHERE url = '" . $xpl[0] . "' ");
         $id_url = Connexion::getInstance()->result();
         if (!$id_url):
