@@ -42,11 +42,35 @@ class Api {
     echo json_encode($keyword);
     exit;
   }
-  
+
+  public function setposition() {
+    if (isset($this->post['id_keyword']) && isset($this->post['values'])):
+      $positions = unserialize(urldecode(base64_decode($this->post['values'])));
+      foreach ($positions as $k => $position):
+        $xpl = explode('&amp;', $position['url']);
+        Connexion::getInstance()->query("SELECT id_url FROM url WHERE url = '" . $xpl[0] . "' ");
+        $id_url = Connexion::getInstance()->result();
+        if (!$id_url):
+          Connexion::getInstance()->query("INSERT INTO url (url) VALUES ('" . $xpl[0] . "') ");
+          Connexion::getInstance()->query("SELECT id_url FROM url WHERE url = '" . $xpl[0] . "' ");
+          $id_url = Connexion::getInstance()->result();
+        endif;
+        Connexion::getInstance()->query("INSERT INTO position (id_url, position, date, id_keyword) VALUES ('" . $id_url . "', '" . ($k + 1) . "', '" . date('Y-m-d') . "', '" . $this->post['id_keyword'] . "') ");
+      endforeach;
+    endif;
+  }
+
   public function getposition() {
-    //
-    $date = new DateTime();
-    echo json_encode($keyword);
+    Connexion::getInstance()->query("SELECT id_keyword, keyword FROM keyword WHERE id_keyword NOT IN (SELECT id_keyword FROM position) AND id_user = '" . $this->user['id'] . "' LIMIT 0,1 ");
+    $keyword = Connexion::getInstance()->fetch();
+    if (isset($keyword['id_keyword'])):
+      $keyword['url'] = $this->user['url'];
+      $keyword['gg'] = $this->user['gg'];
+      $keyword['delay'] = $this->user['delay'];
+      echo json_encode($keyword);
+    else:
+
+    endif;
     exit;
   }
 
