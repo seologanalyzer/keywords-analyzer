@@ -59,7 +59,7 @@ class Api {
           Connexion::getInstance()->query("SELECT id_url FROM url WHERE url = '" . $xpl[0] . "' ");
           $id_url = Connexion::getInstance()->result();
         endif;
-        Connexion::getInstance()->query("INSERT INTO position (id_url, position, date, id_keyword) VALUES ('" . $id_url . "', '" . ($k + 1) . "', '" . date('Y-m-d') . "', '" . $this->post['id_keyword'] . "') ");
+        Connexion::getInstance()->query("INSERT IGNORE INTO position (id_url, position, date, id_keyword) VALUES ('" . $id_url . "', '" . ($k + 1) . "', '" . date('Y-m-d') . "', '" . $this->post['id_keyword'] . "') ");
       endforeach;
     endif;
   }
@@ -73,7 +73,16 @@ class Api {
       $keyword['delay'] = $this->user['delay'];
       echo json_encode($keyword);
     else:
-
+      $date = new DateTime();
+      $date->modify('- ' . $this->user['frequency'] . ' days');
+      Connexion::getInstance()->query("SELECT id_keyword, keyword FROM keyword WHERE id_keyword NOT IN (SELECT id_keyword FROM position WHERE date BETWEEN  '" . $date->format('Y-m-d') . "' AND '" . date('Y-m-d') . "') AND id_user = '" . $this->user['id'] . "' LIMIT 0,1 ");
+      $keyword = Connexion::getInstance()->fetch();
+      if (isset($keyword['id_keyword'])):
+        $keyword['url'] = $this->user['url'];
+        $keyword['gg'] = $this->user['gg'];
+        $keyword['delay'] = $this->user['delay'];
+        echo json_encode($keyword);
+      endif;
     endif;
     exit;
   }
