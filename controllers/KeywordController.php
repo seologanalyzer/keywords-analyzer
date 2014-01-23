@@ -9,6 +9,10 @@ class KeywordController extends FrontController {
     exit;
   }
   
+  protected function ShowAction($id_keyword){
+    
+  }
+  
 }
 
 ?>
