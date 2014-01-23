@@ -13,19 +13,24 @@ class Keyword {
 
     return Connexion::getInstance()->fetchAll();
   }
-  
-  public static function exist($id_user, $id_keyword){
-    Connexion::getInstance()->query("SELECT id_keyword FROM keyword WHERE id_user = '" . $id_user . "' AND id_keyword = '".$id_keyword."' ");
+
+  public static function exist($id_user, $id_keyword) {
+    Connexion::getInstance()->query("SELECT id_keyword FROM keyword WHERE id_user = '" . $id_user . "' AND id_keyword = '" . $id_keyword . "' ");
     $result = Connexion::getInstance()->fetch();
-    if($result > 0){
+    if ($result > 0) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
-  
-  public static function delete($id_user, $id_keyword){
-    Connexion::getInstance()->query("DELETE FROM keyword WHERE id_user = '" . $id_user . "' AND id_keyword = '".$id_keyword."' ");
+
+  public static function delete($id_user, $id_keyword) {
+    Connexion::getInstance()->query("DELETE FROM keyword WHERE id_user = '" . $id_user . "' AND id_keyword = '" . $id_keyword . "' ");
   }
-  
+
+  public static function getKeyword($id_keyword, $id_user) {
+    Connexion::getInstance()->query("SELECT * FROM keyword WHERE id_user = '" . $id_user . "' AND id_keyword = '" . $id_keyword . "' ");
+    return Connexion::getInstance()->fetch();
+  }
+
 }
