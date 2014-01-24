@@ -49,16 +49,18 @@ class Api {
       foreach ($positions as $k => $position):
         $xpl = explode('&amp;', $position['url']);
         //if it's user's url
-        echo $xpl[0];
+
         if (strpos($xpl[0], $this->user['url']) !== false):
           Connexion::getInstance()->query("UPDATE keyword SET position = '" . ($k + 1) . "' WHERE id_keyword = '" . $this->post['id_keyword'] . "' ");
         endif;
-        Connexion::getInstance()->query("SELECT id_url FROM url WHERE url = '" . $xpl[0] . "' ");
+        Connexion::getInstance()->query("SELECT id_url FROM url WHERE url = '" . addslashes($xpl[0]) . "' ");
         $id_url = Connexion::getInstance()->result();
         if (!$id_url):
-          Connexion::getInstance()->query("INSERT INTO url (url) VALUES ('" . $xpl[0] . "') ");
-          Connexion::getInstance()->query("SELECT id_url FROM url WHERE url = '" . $xpl[0] . "' ");
+          Connexion::getInstance()->query("INSERT INTO url (url, title) VALUES ('" . $xpl[0] . "', '" . addslashes($position['title']) . "') ");
+          Connexion::getInstance()->query("SELECT id_url FROM url WHERE url = '" . addslashes($xpl[0]) . "' ");
           $id_url = Connexion::getInstance()->result();
+        else:
+          Connexion::getInstance()->query("UPDATE url SET title = '" . addslashes($position['title']) . "' WHERE id_url = '" . $id_url . "' ");
         endif;
         Connexion::getInstance()->query("INSERT IGNORE INTO position (id_url, position, date, id_keyword) VALUES ('" . $id_url . "', '" . ($k + 1) . "', '" . date('Y-m-d') . "', '" . $this->post['id_keyword'] . "') ");
       endforeach;
@@ -75,7 +77,7 @@ class Api {
       echo json_encode($keyword);
     else:
       $date = new DateTime();
-      $date->modify('- ' . $this->user['frequency'] . ' days');
+      $date->modify('- ' . ($this->user['frequency'] - 1) . ' days');
       Connexion::getInstance()->query("SELECT id_keyword, keyword FROM keyword WHERE id_keyword NOT IN (SELECT id_keyword FROM position WHERE date BETWEEN  '" . $date->format('Y-m-d') . "' AND '" . date('Y-m-d') . "') AND id_user = '" . $this->user['id'] . "' LIMIT 0,1 ");
       $keyword = Connexion::getInstance()->fetch();
       if (isset($keyword['id_keyword'])):
