@@ -91,7 +91,7 @@
                 </td>
                 <td style="text-align:center;"><?php echo ($keyword['competition']); ?></td>
                 <td style="text-align:center;"><?php echo ($keyword['position'] == 0) ? '100' : $keyword['position']; ?></td>
-                <td style="text-align:center;"><a href="/keyword/show/<?php echo $keyword['id_keyword']; ?>"><button class="btn btn-success">Voir</button></a></td>
+                <td style="text-align:center;"><a href="/keyword/show/<?php echo $keyword['id_keyword']; ?>"><button class="btn btn-inverse">Voir</button></a></td>
                 <td style="text-align:center;"><button class="btn btn-danger" onclick="deleteKeyword('<?php echo $keyword['id_keyword']; ?>')">Supprimer</button></td>
               </tr>
             <?php endforeach; ?>
