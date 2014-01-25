@@ -45,7 +45,10 @@
                 <div class="nav-collapse">
                   <ul class="nav">
                     <li>
-                      <a href="/parameters/">Paramètres</a>
+                      <a href="/parameters/"><i class="splashy-sprocket_light" style="margin-top:2px;"></i> Paramètres</a>
+                    </li>
+                    <li>
+                      <a href="/sla/SLA.exe"><i class="splashy-arrow_large_down" style="margin-top:2px;"></i> Télécharger l'executable</a>
                     </li>
                   </ul>
                 </div>
