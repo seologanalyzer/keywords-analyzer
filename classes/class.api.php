@@ -56,7 +56,7 @@ class Api {
         Connexion::getInstance()->query("SELECT id_url FROM url WHERE url = '" . addslashes($xpl[0]) . "' ");
         $id_url = Connexion::getInstance()->result();
         if (!$id_url):
-          Connexion::getInstance()->query("INSERT INTO url (url, title) VALUES ('" . $xpl[0] . "', '" . addslashes($position['title']) . "') ");
+          Connexion::getInstance()->query("INSERT INTO url (url, title) VALUES ('" . addslashes($xpl[0]) . "', '" . addslashes($position['title']) . "') ");
           Connexion::getInstance()->query("SELECT id_url FROM url WHERE url = '" . addslashes($xpl[0]) . "' ");
           $id_url = Connexion::getInstance()->result();
         else:
