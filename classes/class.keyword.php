@@ -125,7 +125,7 @@ class Keyword {
         FROM position p
         LEFT JOIN url u ON u.id_url = p.id_url
         WHERE p.id_keyword =  '" . $keyword['id_keyword'] . "'
-        AND u.url LIKE '%" . $url . "%' AND p.date BETWEEN '" . $date->format('Y-m-d') . "' AND '" . date('Y-m-d') . "' ");
+        AND u.url LIKE '%" . $url . "%' AND p.date BETWEEN '" . $date->format('Y-m-d') . "' AND '" . date('Y-m-d') . "'  GROUP BY p.date ORDER BY p.date ");
 
     $positions = array();
     while ($r = Connexion::getInstance()->fetch())
