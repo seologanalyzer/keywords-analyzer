@@ -45,12 +45,14 @@ class Api {
 
   public function setposition() {
     if (isset($this->post['id_keyword']) && isset($this->post['values'])):
+      $found = false;
       $positions = unserialize(urldecode(base64_decode($this->post['values'])));
       foreach ($positions as $k => $position):
         $xpl = explode('&amp;', $position['url']);
         //if it's user's url
 
-        if (strpos($xpl[0], $this->user['url']) !== false):
+        if (strpos($xpl[0], $this->user['url']) !== false && $found == false):
+          $found = true;
           Connexion::getInstance()->query("UPDATE keyword SET position = '" . ($k + 1) . "' WHERE id_keyword = '" . $this->post['id_keyword'] . "' ");
         endif;
         Connexion::getInstance()->query("SELECT id_url FROM url WHERE url = '" . addslashes($xpl[0]) . "' ");
